@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development ./wallapp/frontend/src/index.js --output ./wallapp/frontend/static/frontend/main.js",
+    "dev": "webpack --mode development --watch ./wallapp/frontend/src/index.js --output ./wallapp/frontend/static/frontend/main.js",
     "build": "webpack --mode production ./wallapp/frontend/src/index.js --output ./wallapp/frontend/static/frontend/main.js"
   },
   "keywords": [],
