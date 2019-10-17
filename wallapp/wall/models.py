@@ -8,3 +8,6 @@ class Message(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='messages')
 
     objects = models.Manager()
+    
+    class Meta:
+        ordering = ['-created_at']

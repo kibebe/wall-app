@@ -1,6 +1,8 @@
 import axios from "axios";
 import { GET_MESSAGES, ADD_MESSAGE, GET_ERRORS } from "./types";
 import { addNotification } from "./notifications"
+import { tokenConfig } from "./auth"
+
 // get messages
 export const getMessages = () => dispatch => {
   axios
@@ -24,9 +26,9 @@ export const getMessages = () => dispatch => {
 };
 
 // add message
-export const addMessage = message => dispatch => {
+export const addMessage = data => (dispatch, getState) => {
   axios
-    .post("api/messages/", message)
+    .post("api/messages/", data, tokenConfig(getState))
     .then(res => {
       dispatch(addNotification({messageAdded: "Message added"}));  
       dispatch({

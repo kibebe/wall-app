@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 export class Form extends Component {
   state = {
-      message: "",
+      continue: "",
     }
     
   static propTypes = {
@@ -20,16 +20,16 @@ export class Form extends Component {
   
   onSubmit = e => {
      e.preventDefault();
-     const { message } = this.state;
-     const data = {message};
+     const { content } = this.state;
+     const data = { content };
      this.props.addMessage(data);
      this.setState({
-         message: ""
+         content: ""
     });
     }
   
   render() {
-    const { message } = this.state;
+    const { content } = this.state;
     
     return (
       <div className="card card-body mt-4 mb-4">
@@ -40,9 +40,9 @@ export class Form extends Component {
             <textarea
               className="form-control"
               type="text"
-              name="message"
+              name="content"
               onChange={this.onChange}
-              value={message}
+              value={content}
             />
           </div>
           <div className="form-group">

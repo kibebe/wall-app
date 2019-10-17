@@ -1,4 +1,4 @@
-import { ADD_NOTIFICATION } from "./../actions/types";
+import { ADD_NOTIFICATION, GET_ERRORS } from "./../actions/types";
 
 export const addNotification = note => {
     return {
@@ -6,3 +6,10 @@ export const addNotification = note => {
         payload: note
     }
 }
+
+export const returnErrors = (msg, status) => {
+  return {
+    type: GET_ERRORS,
+    payload: { msg, status }
+  };
+};

@@ -18,8 +18,9 @@ export class Messages extends Component {
     return (
       <Fragment>
         <h2>Messages</h2>
-        {this.props.messages.map(message => (
-          <div className="row" key={message.id}>
+        {this.props.messages.length > 0 ? (
+        this.props.messages.map(message => (
+          <div className="row" key={message.id} style={{ marginBottom: '2em'}}>
             <div className="col-lg-12">
                 <Card className="text-center">
                     <Card.Header>{message.created_by}</Card.Header>
@@ -32,7 +33,8 @@ export class Messages extends Component {
                 </Card>
             </div>
           </div>
-        ))}
+        ))): 
+        <h6>No posts yet</h6> }
       </Fragment>
     );
   }
