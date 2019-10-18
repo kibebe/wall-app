@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
 import { addNotification } from "../../actions/notifications";
+import Loader from 'react-loader-spinner';
 
 export class Register extends Component {
   state = {
@@ -16,6 +17,7 @@ export class Register extends Component {
   static propTypes = {
     register: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
+    isLoading: PropTypes.bool,
     addNotification: PropTypes.func.isRequired
   };
 
@@ -40,6 +42,21 @@ export class Register extends Component {
   render() {
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />;
+    }
+    if (this.props.isLoading){
+      return (
+          <div
+            style={{
+                width: "100%",
+                height: "100",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+            }}
+          >
+            <Loader type="ThreeDots" color="#2BAD60" />
+          </div>
+    )  
     }
     const { username, email, password, password2 } = this.state;
     return (
@@ -103,7 +120,8 @@ export class Register extends Component {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  isLoading: state.auth.isLoading
 });
 
 export default connect(

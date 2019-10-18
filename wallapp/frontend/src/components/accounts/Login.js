@@ -3,6 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../../actions/auth";
+import Loader from 'react-loader-spinner';
 
 export class Login extends Component {
   state = {
@@ -12,7 +13,8 @@ export class Login extends Component {
 
   static propTypes = {
     login: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
+    isAuthenticated: PropTypes.bool,
+    isLoading: PropTypes.bool,
   };
 
   onSubmit = e => {
@@ -29,6 +31,21 @@ export class Login extends Component {
   render() {
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />;
+    }
+    if (this.props.isLoading){
+      return (
+          <div
+            style={{
+                width: "100%",
+                height: "100",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+            }}
+          >
+            <Loader type="ThreeDots" color="#2BAD60" />
+          </div>
+    )  
     }
     const { username, password } = this.state;
     return (
@@ -71,7 +88,8 @@ export class Login extends Component {
   }
 }
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  isLoading: state.auth.isLoading
 });
 export default connect(
   mapStateToProps,

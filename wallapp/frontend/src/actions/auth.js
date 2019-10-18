@@ -42,7 +42,8 @@ export const register = (username, email, password) => dispatch => {
 
   //request body
   const body = JSON.stringify({ username, email, password });
-
+  
+  dispatch({ type: USER_LOADING });  
   axios
     .post("/api/auth/register", body, config)
     .then(res => {
@@ -70,7 +71,8 @@ export const login = (username, password) => dispatch => {
 
   //request body
   const body = JSON.stringify({ username, password });
-
+  
+  dispatch({ type: USER_LOADING });
   axios
     .post("/api/auth/login", body, config)
     .then(res => {
