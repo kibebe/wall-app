@@ -2,6 +2,9 @@ from rest_framework import generics, permissions
 from rest_framework.response import Response
 from knox.models import AuthToken
 from .serializers import UserSerializer, RegisterSerializer, LoginSerializer
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
 
 # register API
 class RegisterApi(generics.GenericAPIView):
@@ -11,6 +14,18 @@ class RegisterApi(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+        
+        # Send a welcome email to registered user
+        site = get_current_site(request)
+        message = render_to_string('register_welcome_email.html', {
+                'user':user, 
+                'domain':site.domain,
+            })
+        mail_subject = 'Welcome - Registration successful'
+        to_email = user.email
+        email = EmailMessage(mail_subject, message, to=[to_email])
+        email.send()
+        
         return Response({
             'user': UserSerializer(user, context=self.get_serializer_context()).data,
             'token': AuthToken.objects.create(user)[1]

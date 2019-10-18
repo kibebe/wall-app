@@ -14,7 +14,7 @@ import PrivateRoute from "./common/PrivateRoute"
 import { loadUser } from "./../actions/auth"
 
 const alertOptions = {
-     timeout: 3000,
+     timeout: 5000,
      position: 'top center'
 }; 
 class App extends Component {
