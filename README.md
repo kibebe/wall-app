@@ -1,5 +1,11 @@
 Wall App is a website that allows users to register, login, and write on a wall.
 
+Technology stack
+
+- Backend -> Django Rest Framework
+
+- Frontend -> React.js
+
 Installation
 
 - Backend = pipenv install 
